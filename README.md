@@ -1,17 +1,21 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/plengqui/plengqui.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# 2020-07-21 Verifying Amazon Glacier backup from my Synology NAS
+I backup my Synology NAS using Synologys builtin Glacier Backup utility. I wanted to verify that I could recover any backed up file **without using my Synology NAS**.   
+These were the steps:
+1. Download and analyze the index, which is an **sqlite** database file.
+2. Choose a file in the index database, grab the archive id.
+3. Download the archive with the chosen id. Rename it to the right filename.
+4. Compare it to the original file on the NAS.
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Format and structure of Synology Glacier Backups
+If you are familiar with Amazon Glacier, you know it is a long-term, slow-access data storage solution that has two main concepts: **Vaults**, which contain **Archives**. Synology Glacier Backup stores each backed up file as an Archive object, but gives it an id (128 random characters)...
 
 ```markdown
 Syntax highlighted code block
+```
 
-# Header 1
+
 ## Header 2
 ### Header 3
 
@@ -24,7 +28,6 @@ Syntax highlighted code block
 **Bold** and _Italic_ and `Code` text
 
 [Link](url) and ![Image](src)
-```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
