@@ -13,13 +13,14 @@ These were the steps to verify an Amazon Glacier Backup from my Synology NAS:
 
 ## Format and structure of Synology Glacier Backups
 If you are familiar with Amazon Glacier, you know it is a long-term, slow-access data storage solution that has two main concepts: **Vaults**, which contain **Archives**. Synology Glacier Backup stores each backed up file from your NAS as an Archive object, but gives it a nonsensical id of 128 random characters. The archive id is stored with the original filename and other metadata in an index file in a separate Vault. So, in your AWS Glacier console you will see two vaults:  
-- 'NAS_0012345ABCDE_1' this is the main Vault with all backed up files, without any metadata.
-- 'NAS_0012345ABCDE_1_mapping' this Vault contains one single Archive, which is the index file.  
-The index file is actually an sqlite database. The mapping is in the 'file_info_tb' table, which has the following columns: 
+- `NAS_0012345ABCDE_1` this is the main Vault with all backed up files, without any metadata.
+- `NAS_0012345ABCDE_1_mapping` this Vault contains one single Archive, which is the index file.  
+
+The index file is actually an sqlite database. The mapping is in the `file_info_tb` table, which has the following columns: 
 |key|shareName|basePath|archiveID|lastBkpTime|fileSize|archiveVersion|current|checksum| 
 
 ## Performing a restore test of a single file
-I downloaded the single archive from the NAS_0012345ABCDE_1_mapping vault, and renamed it from its 128-character nonsensical name to 'glacierbackup-index.sqlite' on my pc, for readability.
+I downloaded the single archive from the NAS_0012345ABCDE_1_mapping vault, and renamed it from its 128-character nonsensical name to `glacierbackup-index.sqlite` on my pc, for readability.
 To download archives from Amazon Glacier, I used [FastGlacier](https://fastglacier.com/). There are other alternative clients, any client should work. 
 Python code to read the index databse file:
 ```python
@@ -34,5 +35,5 @@ for row in c.execute("SELECT archiveID FROM file_info_tb WHERE basePath='importa
 conn.close()
 ```
 Using the archive id from the index database, you can download the archive from the NAS_0012345ABCDE_1 vault. 
-As a final step, you probably want to rename the downloaded file from 'f6-qTd5rn-MORE-GOBBLYGOOK-OKb3RC_zZG7PxpjPtkfBFzNpw' to its original filename. Now you can verify that it is identical to the original backed up file on your NAS. 
+As a final step, you probably want to rename the downloaded file from the nonsensical 128-character id to its original filename. Now you can verify that it is identical to the original backed up file on your NAS. 
 
