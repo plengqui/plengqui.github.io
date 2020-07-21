@@ -19,8 +19,9 @@ If you are familiar with Amazon Glacier, you know it is a long-term, slow-access
 
 The index file is actually a **sqlite** database. The mapping is in the `file_info_tb` table, which has the following columns: 
 
-|key|shareName|basePath|archiveID|lastBkpTime|fileSize|archiveVersion|current|checksum| 
-|---|---------|--------|---------|-----------|--------|--------------|-------|--------|
+|key|shareName|basePath|archiveID|lastBkpTime|fileSize|archiveVersion|current|checksum|  
+|---|---------|--------|---------|-----------|--------|--------------|-------|--------|  
+
 
 ## Performing a restore test of a single file
 I downloaded the single archive from the `NAS_0012345ABCDE_1_mapping` vault, and renamed it from its 128-character nonsensical name to `glacierbackup-index.sqlite` for readability. To download archives from Amazon Glacier, I used [FastGlacier](https://fastglacier.com/). There are other alternative clients, any client should work. 
