@@ -18,6 +18,7 @@ If you are familiar with Amazon Glacier, you know it is a long-term, slow-access
 - `NAS_0012345ABCDE_1_mapping` this Vault contains one single Archive, which is the index file.  
 
 The index file is actually a **sqlite** database. The mapping is in the `file_info_tb` table, which has the following columns: 
+
 |key|shareName|basePath|archiveID|lastBkpTime|fileSize|archiveVersion|current|checksum| 
 |---|---------|--------|---------|-----------|--------|--------------|-------|--------|
 
